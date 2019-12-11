@@ -1,0 +1,26 @@
+#entrada {
+    position: absolute;
+    top: 30px;
+    left: 34.5%;
+}
+
+input {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+}
+
+p {
+    font-size: 28px;
+}
+
+#saida {
+    width: center;
+    position: relative;
+    top: 150px;
+}
+
+
+/* background-color: blue;*/

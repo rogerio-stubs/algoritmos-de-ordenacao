@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Algoritmos de ordenação</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="entrada">
+                    <p>Números a serem ordenados</p>
+                    <br>    
+                    <input type="text" placeholder="Separe os números por hífen">                                        
+                </div>
+            </div>
+        </div>
+        <div class="row" id="saida">
+            <div class="col-md-4">
+                <button class="btn btn-success" onclick="dataInput(1)">Executar SelectionSort</button>
+            </div>
+            <div class="col-md-4">
+                    <button class="btn btn-success">Executar InsertionSort</button>
+            </div>
+            <div class="col-md-4">
+                    <button class="btn btn-success">Executar MergeSort</button>
+            </div>
+        </div>    
+    </div>
+    <script src="main.js"></script>
+    </body>
+</html>
