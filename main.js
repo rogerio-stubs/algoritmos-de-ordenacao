@@ -4,10 +4,12 @@ var inputElement = document.querySelector('#entrada input');
 var elements = [];
 
 function dataInput(condition) {
-    var elements = inputElement.value;
+    let tmp = inputElement.value;
+    elements = tmp.split(" ");
     try {
         for (element of elements) {
-            if (isNaN(element)) throw "Digite apenas números"            
+            if (isNaN(element)) throw "Digite apenas números"
+            if ((element === "-0") || (element === "+0")) throw "Esse número não é válido"
         }
         if (condition === 1) {
             selectionSort(elements);
@@ -25,14 +27,12 @@ function dataInput(condition) {
 
 function selectionSort(elements) {
     console.log('selectionSort');
-    let size = 4; // valor chumbado
-    for (let x = 0; x < size; x++) {
-        console.log(elements[x]);
-    }
+    let size = elements.length;
     for (let x = 0; x < size; x++) {
         minimun = x;
         for (let y = x + 1; y < size; y++) {
             if (elements[minimun] > elements[y]) {
+                console.log(elements[minimun], '>', elements[y]);
                 minimun = y
             }
         }
@@ -40,6 +40,7 @@ function selectionSort(elements) {
         elements[x] = elements[minimun];
         elements[minimun] = tmp;
     }
+    console.log(elements);
 }
 
 function insertionSort() {
