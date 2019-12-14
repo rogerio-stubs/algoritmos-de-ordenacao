@@ -2,14 +2,17 @@
 var inputElement = document.querySelector('#entrada input');
 // vaiáveis lógicas
 var elements = [];
+var list = [];
 
 function dataInput(condition) {
     let tmp = inputElement.value;
-    elements = tmp.split(" ");
+    list = tmp.split(" ");
     try {
-        for (element of elements) {
-            if (isNaN(element)) throw "Digite apenas números"
-            if ((element === "-0") || (element === "+0")) throw "Esse número não é válido"
+        for (let idx = 0; idx < list.length; idx++) {
+            if (isNaN(list[idx])) throw "Digite apenas números"
+            if ((list[idx] === '-0') || (list[idx] === '+0')) throw "Esse número não é válido"
+            let convert = list[idx];
+            elements[idx] = parseInt(convert);
         }
         if (condition === 1) {
             selectionSort(elements);
@@ -32,7 +35,6 @@ function selectionSort(elements) {
         minimun = x;
         for (let y = x + 1; y < size; y++) {
             if (elements[minimun] > elements[y]) {
-                console.log(elements[minimun], '>', elements[y]);
                 minimun = y
             }
         }
