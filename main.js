@@ -17,7 +17,7 @@ function dataInput(condition) {
         if (condition === 1) {
             selectionSort(elements);
         } if (condition === 2) {
-            insertionSort();
+            insertionSort(elements);
         } if (condition === 3) {
             mergeSort();
         }
@@ -42,11 +42,22 @@ function selectionSort(elements) {
         elements[x] = elements[minimun];
         elements[minimun] = tmp;
     }
-    console.log(elements);
+    console.log('elementos ordenados: ', elements);
 }
 
-function insertionSort() {
+function insertionSort(elements) {
     console.log('insertioSort');
+    let size = elements.length;
+    for (let idx = 1; idx < size; idx++) {
+        let key = elements[idx];
+        let tmp = idx - 1;
+        while (tmp >= 0 && elements[tmp] > key) {
+            elements[tmp+1] = elements[tmp];
+            tmp--;
+            elements[tmp+1] = key;
+        }
+    }
+    console.log('elementos ordenados: ', elements);
 }
 
 function mergeSort() {
