@@ -3,6 +3,11 @@ var inputElement = document.querySelector('#entrada input');
 // vaiáveis lógicas
 var elements = [];
 var list = [];
+var size;
+
+function sizeInput(elements) {
+    return elements.length;
+}
 
 function dataInput(condition) {
     let tmp = inputElement.value;
@@ -14,12 +19,13 @@ function dataInput(condition) {
             let convert = list[idx];
             elements[idx] = parseInt(convert);
         }
+        size = sizeInput(elements);
         if (condition === 1) {
             selectionSort(elements);
         } if (condition === 2) {
             insertionSort(elements);
         } if (condition === 3) {
-            mergeSort();
+            mergeSort(elements, listAux, 0, size);
         }
     }
     catch(err) {
@@ -30,7 +36,6 @@ function dataInput(condition) {
 
 function selectionSort(elements) {
     console.log('selectionSort');
-    let size = elements.length;
     for (let x = 0; x < size; x++) {
         minimun = x;
         for (let y = x + 1; y < size; y++) {
@@ -47,10 +52,9 @@ function selectionSort(elements) {
 
 function insertionSort(elements) {
     console.log('insertioSort');
-    let size = elements.length;
     for (let idx = 1; idx < size; idx++) {
         let key = elements[idx];
-        let tmp = idx - 1;
+        let tmp = idx-1;
         while (tmp >= 0 && elements[tmp] > key) {
             elements[tmp+1] = elements[tmp];
             tmp--;
@@ -60,6 +64,20 @@ function insertionSort(elements) {
     console.log('elementos ordenados: ', elements);
 }
 
-function mergeSort() {
+function mergeSort(elements, listAux, left, right) {
     console.log('mergeSort');
+    if (right <= left) {
+        return;
+    }
+    var half = (left + right) / 2; //valor inteiro
+
+    mergeSort(elements, listAux, left, right);
+
+    mergeSort(elements, listAux, half+1, right);
+
+    merge(elements, listAux, left, half, right);
+}
+
+function merge(elements, listAux, left, half, right) {
+    console.log('merge');
 }
