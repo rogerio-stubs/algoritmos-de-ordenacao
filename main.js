@@ -25,6 +25,8 @@ function dataInput(condition) {
         } if (condition === 2) {
             insertionSort(elements);
         } if (condition === 3) {
+            let tmp = elements.concat();
+            var listAux = tmp.fill(0);
             mergeSort(elements, listAux, 0, size);
         }
     }
@@ -64,20 +66,48 @@ function insertionSort(elements) {
     console.log('elementos ordenados: ', elements);
 }
 
+function merge(elements, listAux, left, half, right) {
+    //console.log('listAux', listAux);
+    for (let idx = left; idx < right+1; idx++) {
+        listAux[idx] = elements[idx];
+    }
+    var i = left;
+    var j = half+1;
+    for (let idx = left; idx < right+1; idx++) {
+        if (i > half) {
+            elements[idx] = listAux[j];
+            j++;
+        } if (j > right) {
+            elements[idx] = listAux[i];
+            i++;
+        } if (listAux[j] < listAux[i]) {
+            elements[idx] = listAux[j];
+            j++;
+        } else {
+            elements[idx] = listAux[i];
+            i++;
+        }
+    }
+    console.log(elements);
+}
+
+
 function mergeSort(elements, listAux, left, right) {
-    console.log('mergeSort');
+    /*
+    console.log('elements', elements);
+    console.log('listAux', listAux);
+    console.log('left', left);
+    console.log('right', right);
+    */
     if (right <= left) {
         return;
     }
-    var half = (left + right) / 2; //valor inteiro
+    var half = parseInt((left + right) / 2);
+    console.log('half', half);
 
-    mergeSort(elements, listAux, left, right);
+    mergeSort(elements, listAux, left, half);
 
     mergeSort(elements, listAux, half+1, right);
 
     merge(elements, listAux, left, half, right);
-}
-
-function merge(elements, listAux, left, half, right) {
-    console.log('merge');
 }
