@@ -3,11 +3,6 @@ var inputElement = document.querySelector('#entrada input');
 // vaiáveis lógicas
 var elements = [];
 var list = [];
-var size;
-
-function sizeInput(elements) {
-    return elements.length;
-}
 
 function dataInput(condition) {
     let tmp = inputElement.value;
@@ -19,15 +14,12 @@ function dataInput(condition) {
             let convert = list[idx];
             elements[idx] = parseInt(convert);
         }
-        size = sizeInput(elements);
         if (condition === 1) {
-            selectionSort(elements);
+            console.log(selectionSort(elements));
         } if (condition === 2) {
-            insertionSort(elements);
+            console.log(insertionSort(elements));
         } if (condition === 3) {
-            let tmp = elements.concat();
-            var listAux = tmp.fill(0);
-            mergeSort(elements, listAux, 0, size);
+            console.log(mergeSort(elements));
         }
     }
     catch(err) {
@@ -37,77 +29,55 @@ function dataInput(condition) {
 }
 
 function selectionSort(elements) {
-    console.log('selectionSort');
-    for (let x = 0; x < size; x++) {
-        minimun = x;
-        for (let y = x + 1; y < size; y++) {
-            if (elements[minimun] > elements[y]) {
-                minimun = y
+    for (let idx = 0; idx < elements.length; idx++) {
+        let down = idx;
+        for (let y = idx + 1; y < elements.length; y++) {
+            if (elements[down] > elements[y]) {
+                down = y
             }
         }
-        let tmp = elements[x];
-        elements[x] = elements[minimun];
-        elements[minimun] = tmp;
+        let tmp = elements[idx];
+        elements[idx] = elements[down];
+        elements[down] = tmp;
     }
-    console.log('elementos ordenados: ', elements);
+    return elements;
 }
 
 function insertionSort(elements) {
-    console.log('insertioSort');
-    for (let idx = 1; idx < size; idx++) {
+    for (let idx = 1; idx < elements.length; idx++) {
         let key = elements[idx];
         let tmp = idx-1;
         while (tmp >= 0 && elements[tmp] > key) {
             elements[tmp+1] = elements[tmp];
+            elements[tmp] = key;
             tmp--;
-            elements[tmp+1] = key;
         }
     }
-    console.log('elementos ordenados: ', elements);
+    return elements;
 }
 
-function merge(elements, listAux, left, half, right) {
-    //console.log('listAux', listAux);
-    for (let idx = left; idx < right+1; idx++) {
-        listAux[idx] = elements[idx];
-    }
-    var i = left;
-    var j = half+1;
-    for (let idx = left; idx < right+1; idx++) {
-        if (i > half) {
-            elements[idx] = listAux[j];
-            j++;
-        } if (j > right) {
-            elements[idx] = listAux[i];
-            i++;
-        } if (listAux[j] < listAux[i]) {
-            elements[idx] = listAux[j];
-            j++;
+function merge(left, right) {
+    let arr = [];
+
+    while (left.length && right.length) {
+        if (left[0] < right[0]) {
+            arr.push(left.shift());
         } else {
-            elements[idx] = listAux[i];
-            i++;
+            arr.push(right.shift());
         }
     }
-    console.log(elements);
+    return arr.concat(left.slice().concat(right.slice()));
 }
 
-
-function mergeSort(elements, listAux, left, right) {
-    /*
-    console.log('elements', elements);
-    console.log('listAux', listAux);
-    console.log('left', left);
-    console.log('right', right);
-    */
-    if (right <= left) {
-        return;
+function mergeSort(elements) {
+    if (elements.length < 2) {
+        return elements;
     }
-    var half = parseInt((left + right) / 2);
-    console.log('half', half);
 
-    mergeSort(elements, listAux, left, half);
+    const middle = Math.floor(elements.length / 2);
+    const left = elements.slice(0, middle);
+    const right = elements.slice(middle);
 
-    mergeSort(elements, listAux, half+1, right);
-
-    merge(elements, listAux, left, half, right);
+    return merge(mergeSort(left), mergeSort(right));
 }
+
