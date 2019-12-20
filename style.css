@@ -1,7 +1,6 @@
-#entrada {
-    position: absolute;
-    top: 30px;
-    left: 34.5%;
+table, th, td {
+    text-align: center;
+    border: 2px solid black;
 }
 
 input {
@@ -16,15 +15,24 @@ p {
     font-size: 28px;
 }
 
+#entrada {
+    position: absolute;
+    top: 30px;
+    left: 34.5%;
+}
+
 #saida {
     width: center;
     position: relative;
     top: 150px;
 }
 
+#selectionSort, #insertionSort, #mergeSort {
+    position: relative;
+    top: 10px;
+}
+
+/* background-color: blue;*/
 #teste {
     background-color: blue;
 }
-
-
-/* background-color: blue;*/

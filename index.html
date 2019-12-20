@@ -15,19 +15,22 @@
                 <div id="entrada">
                     <p>Números a serem ordenados</p>
                     <br>    
-                    <input type="text" placeholder="Separe os números por espaço">
+                    <input id="arrInput" type="text" placeholder="Separe os números por espaço">
                 </div>
             </div>
         </div>
         <div class="row" id="saida">
             <div class="col-md-4">
-                <button class="btn btn-success" onclick="dataInput(1)">Executar SelectionSort</button>
+                <button class="btn btn-success" onclick="dataInput('selectionSort')">Executar SelectionSort</button>
+                <div id="selectionSort"></div>
             </div>
             <div class="col-md-4">
-                    <button class="btn btn-success" onclick="dataInput(2)">Executar InsertionSort</button>
+                    <button class="btn btn-success" onclick="dataInput('insertionSort')">Executar InsertionSort</button>
+                    <div id="insertionSort"></div>
             </div>
             <div class="col-md-4">
-                    <button class="btn btn-success" onclick="dataInput(3)">Executar MergeSort</button>
+                    <button class="btn btn-success" onclick="dataInput('mergeSort')">Executar MergeSort</button>
+                    <div id="mergeSort"></div>
             </div>
         </div>    
     </div>

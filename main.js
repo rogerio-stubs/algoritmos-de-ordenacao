@@ -1,8 +1,8 @@
-// variáveis de layout
-var inputElement = document.querySelector('#entrada input');
-// vaiáveis lógicas
+/* ## LOGICA ## */
+var inputElement = document.getElementById('arrInput')
 var elements = [];
 var list = [];
+var condition;
 
 function dataInput(condition) {
     let tmp = inputElement.value;
@@ -14,12 +14,12 @@ function dataInput(condition) {
             let convert = list[idx];
             elements[idx] = parseInt(convert);
         }
-        if (condition === 1) {
-            console.log(selectionSort(elements));
-        } if (condition === 2) {
-            console.log(insertionSort(elements));
-        } if (condition === 3) {
-            console.log(mergeSort(elements));
+        if (condition === 'selectionSort') {
+            console.log(selectionSort(elements, condition));
+        } if (condition === 'insertionSort') {
+            console.log(insertionSort(elements, condition));
+        } if (condition === 'mergeSort') {
+            console.log(mergeSort(elements, condition));
         }
     }
     catch(err) {
@@ -28,7 +28,9 @@ function dataInput(condition) {
     }
 }
 
-function selectionSort(elements) {
+function selectionSort(elements, condition) {
+    renderArr(elements, condition);
+
     for (let idx = 0; idx < elements.length; idx++) {
         let down = idx;
         for (let y = idx + 1; y < elements.length; y++) {
@@ -40,10 +42,11 @@ function selectionSort(elements) {
         elements[idx] = elements[down];
         elements[down] = tmp;
     }
-    return elements;
+    renderArr(elements, condition);
 }
 
-function insertionSort(elements) {
+function insertionSort(elements, condition) {
+    renderArr(elements, condition);
     for (let idx = 1; idx < elements.length; idx++) {
         let key = elements[idx];
         let tmp = idx-1;
@@ -53,7 +56,7 @@ function insertionSort(elements) {
             tmp--;
         }
     }
-    return elements;
+    renderArr(elements, condition);
 }
 
 function merge(left, right) {
@@ -81,3 +84,29 @@ function mergeSort(elements) {
     return merge(mergeSort(left), mergeSort(right));
 }
 
+
+/* ## LAYOUT ## */
+function renderArr(elements, condition) {
+    if (condition === 'selectionSort') {
+        var divElement = document.getElementById('selectionSort');
+    }
+    if (condition == 'insertionSort') {
+        var divElement = document.getElementById('insertionSort');
+    }
+    if (condition == 'mergeSort') {
+        var divElement = document.getElementById('mergeSort');
+    }
+    let tableElement = document.createElement('table');
+    tableElement.setAttribute('class', 'table');
+    let trElement = document.createElement('tr');
+
+    tableElement.appendChild(trElement);
+
+    for (let idx = 0; idx < elements.length; idx++){
+        let tdElement = document.createElement('td');
+        let tdValue = document.createTextNode(elements[idx]);
+        tdElement.appendChild(tdValue);
+        trElement.appendChild(tdElement);
+    }
+    divElement.appendChild(tableElement);
+}
