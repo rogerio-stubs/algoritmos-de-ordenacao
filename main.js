@@ -15,11 +15,13 @@ function dataInput(condition) {
             elements[idx] = parseInt(convert);
         }
         if (condition === 'selectionSort') {
-            console.log(selectionSort(elements, condition));
+            selectionSort(elements);
         } if (condition === 'insertionSort') {
-            console.log(insertionSort(elements, condition));
+            renderArr(elements, condition);
+            insertionSort(elements);
+            renderArr(elements, condition);
         } if (condition === 'mergeSort') {
-            console.log(mergeSort(elements, condition));
+            console.log(mergeSort(elements));
         }
     }
     catch(err) {
@@ -28,13 +30,13 @@ function dataInput(condition) {
     }
 }
 
-function selectionSort(elements, condition) {
-    renderArr(elements, condition);
-
+function selectionSort(elements) {
     for (let idx = 0; idx < elements.length; idx++) {
+        renderArr(elements, 'selectionSort');
         let down = idx;
         for (let y = idx + 1; y < elements.length; y++) {
             if (elements[down] > elements[y]) {
+                renderSearchElement(down, y, 'selectionSort');
                 down = y
             }
         }
@@ -42,12 +44,12 @@ function selectionSort(elements, condition) {
         elements[idx] = elements[down];
         elements[down] = tmp;
     }
-    renderArr(elements, condition);
+    return elements;
 }
 
-function insertionSort(elements, condition) {
-    renderArr(elements, condition);
+function insertionSort(elements) {
     for (let idx = 1; idx < elements.length; idx++) {
+        renderArr(elements, 'insertionSort');
         let key = elements[idx];
         let tmp = idx-1;
         while (tmp >= 0 && elements[tmp] > key) {
@@ -56,7 +58,7 @@ function insertionSort(elements, condition) {
             tmp--;
         }
     }
-    renderArr(elements, condition);
+    return elements;
 }
 
 function merge(left, right) {
@@ -105,8 +107,21 @@ function renderArr(elements, condition) {
     for (let idx = 0; idx < elements.length; idx++){
         let tdElement = document.createElement('td');
         let tdValue = document.createTextNode(elements[idx]);
+        tdElement.setAttribute('id', idx);
         tdElement.appendChild(tdValue);
         trElement.appendChild(tdElement);
     }
     divElement.appendChild(tableElement);
+}
+
+function renderSearchElement(begin, finish, condition) {
+    
+    document.getElementById(begin).style.backgroundColor = "#FF6347";
+    
+    for (let idx = 0; idx < elements.length; idx++) {
+        document.getElementById(finish).style.backgroundColor = "	#1E90FF";
+        document.getElementById(finish).style.backgroundColor = "	#ffffff";
+
+    }
+    console.log('b', begin, 'f', finish, 'c', condition, 'lenght', elements.length);
 }
