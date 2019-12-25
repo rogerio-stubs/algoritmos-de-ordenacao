@@ -34,12 +34,17 @@ function selectionSort(elements) {
     for (let idx = 0; idx < elements.length; idx++) {
         renderArr(elements, 'selectionSort');
         let down = idx;
+        // marcar como vermelho a variáve down (primeira);
+        setColorRed(down);
         for (let y = idx + 1; y < elements.length; y++) {
-            if (elements[down] > elements[y]) {
-                renderSearchElement(down, y, 'selectionSort');
+            // Percorre o array e pisca a acor azul
+            setInterval(setColorBlue, y, elements.length);
+            if (elements[down] > elements[y]) {                
                 down = y
             }
         }
+        // marca de verde down
+        setColorGreen(down);
         let tmp = elements[idx];
         elements[idx] = elements[down];
         elements[down] = tmp;
@@ -109,19 +114,20 @@ function renderArr(elements, condition) {
         let tdValue = document.createTextNode(elements[idx]);
         tdElement.setAttribute('id', idx);
         tdElement.appendChild(tdValue);
-        trElement.appendChild(tdElement);
+        trElement.appendChild(tdElement);        
     }
     divElement.appendChild(tableElement);
 }
 
-function renderSearchElement(begin, finish, condition) {
-    
-    document.getElementById(begin).style.backgroundColor = "#FF6347";
-    
-    for (let idx = 0; idx < elements.length; idx++) {
-        document.getElementById(finish).style.backgroundColor = "	#1E90FF";
-        document.getElementById(finish).style.backgroundColor = "	#ffffff";
+function setColorRed(down) {
+    // pega o primeiro elemento com aquele id
+    document.getElementById(down).style.backgroundColor = "#FF0000";
+}
 
-    }
-    console.log('b', begin, 'f', finish, 'c', condition, 'lenght', elements.length);
+function setColorBlue(begin, size) {
+    return 1;
+}
+
+function setColorGreen(success) {
+    document.getElementById(success).style.backgroundColor = "#00FF00";
 }
