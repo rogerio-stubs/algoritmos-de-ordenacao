@@ -3,6 +3,7 @@ var inputElement = document.getElementById('arrInput')
 var elements = [];
 var list = [];
 var condition;
+var counterRow = 0;
 
 function dataInput(condition) {
     let tmp = inputElement.value;
@@ -17,9 +18,7 @@ function dataInput(condition) {
         if (condition === 'selectionSort') {
             selectionSort(elements);
         } if (condition === 'insertionSort') {
-            renderArr(elements, condition);
             insertionSort(elements);
-            renderArr(elements, condition);
         } if (condition === 'mergeSort') {
             console.log(mergeSort(elements));
         }
@@ -31,20 +30,16 @@ function dataInput(condition) {
 }
 
 function selectionSort(elements) {
+    counterRow = 0;
     for (let idx = 0; idx < elements.length; idx++) {
-        renderArr(elements, 'selectionSort');
+        renderArr(elements, 'selectionSort', counterRow);
+        counterRow++;
         let down = idx;
-        // marcar como vermelho a variáve down (primeira);
-        setColorRed(down);
         for (let y = idx + 1; y < elements.length; y++) {
-            // Percorre o array e pisca a acor azul
-            setInterval(setColorBlue, y, elements.length);
             if (elements[down] > elements[y]) {                
                 down = y
             }
         }
-        // marca de verde down
-        setColorGreen(down);
         let tmp = elements[idx];
         elements[idx] = elements[down];
         elements[down] = tmp;
@@ -53,8 +48,8 @@ function selectionSort(elements) {
 }
 
 function insertionSort(elements) {
+    counterRow = 0;
     for (let idx = 1; idx < elements.length; idx++) {
-        renderArr(elements, 'insertionSort');
         let key = elements[idx];
         let tmp = idx-1;
         while (tmp >= 0 && elements[tmp] > key) {
@@ -62,6 +57,9 @@ function insertionSort(elements) {
             elements[tmp] = key;
             tmp--;
         }
+        renderArr(elements, 'insertionSort', counterRow);
+        counterRow++;
+        // continuação
     }
     return elements;
 }
@@ -93,7 +91,7 @@ function mergeSort(elements) {
 
 
 /* ## LAYOUT ## */
-function renderArr(elements, condition) {
+function renderArr(elements, condition, counterRow) {
     if (condition === 'selectionSort') {
         var divElement = document.getElementById('selectionSort');
     }
@@ -106,6 +104,7 @@ function renderArr(elements, condition) {
     let tableElement = document.createElement('table');
     tableElement.setAttribute('class', 'table');
     let trElement = document.createElement('tr');
+    trElement.setAttribute('id', counterRow);
 
     tableElement.appendChild(trElement);
 
@@ -117,17 +116,4 @@ function renderArr(elements, condition) {
         trElement.appendChild(tdElement);        
     }
     divElement.appendChild(tableElement);
-}
-
-function setColorRed(down) {
-    // pega o primeiro elemento com aquele id
-    document.getElementById(down).style.backgroundColor = "#FF0000";
-}
-
-function setColorBlue(begin, size) {
-    return 1;
-}
-
-function setColorGreen(success) {
-    document.getElementById(success).style.backgroundColor = "#00FF00";
 }
